@@ -1,8 +1,6 @@
-import { TaskDrag } from '@bryntum/taskboard';
 import { BryntumTaskBoardProps } from '@bryntum/taskboard-react';
 
 const taskboardProps: BryntumTaskBoardProps = {
-
    columns : [
        { id : 'todo', text : 'Todo', color : 'orange' },
        { id : 'doing', text : 'Doing', color : 'blue', tooltip : 'Items that are currently in progress' },
