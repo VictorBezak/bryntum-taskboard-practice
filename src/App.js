@@ -1,9 +1,11 @@
-import './App.css';
+import { BryntumTaskBoard } from '@bryntum/taskboard-react';
+import { taskboardProps } from './TaskBoardConfig';
+import './App.scss';
 
 function App() {
-  return (
-    <h1>Hello, World!</h1>
-  );
+    return (
+        <BryntumTaskBoard {...taskboardProps} />
+    );
 }
 
 export default App;
