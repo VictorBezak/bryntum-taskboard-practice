@@ -1,3 +1,4 @@
+import { TaskDrag } from '@bryntum/taskboard';
 import { BryntumTaskBoardProps } from '@bryntum/taskboard-react';
 
 const taskboardProps: BryntumTaskBoardProps = {
@@ -26,6 +27,10 @@ const taskboardProps: BryntumTaskBoardProps = {
            }
        },
        autoLoad : true
+   },
+   taskDragFeature: true,
+   onTaskDrop: (event) => {
+    console.log("event", event)
    }
 
 };
