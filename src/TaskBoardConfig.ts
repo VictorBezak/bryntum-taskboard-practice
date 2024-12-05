@@ -7,6 +7,14 @@ const taskboardProps: BryntumTaskBoardProps = {
        { id : 'doing', text : 'Doing', color : 'blue', tooltip : 'Items that are currently in progress' },
        { id : 'done', text : 'Done' }
    ],
+    tbar : {
+        items : [
+            {
+                type : 'button',
+                text : 'My button'
+            }
+        ]
+    },
 
    // Field used to pair a task to a column
    columnField : 'status',
