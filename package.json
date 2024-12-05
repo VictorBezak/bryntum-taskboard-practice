@@ -1,6 +1,7 @@
 {
   "name": "bryntum-taskboard-practice",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@bryntum/taskboard": "^6.1.3",

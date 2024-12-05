@@ -1,4 +1,6 @@
-const taskboardProps = {
+import { BryntumTaskBoardProps } from '@bryntum/taskboard-react';
+
+const taskboardProps: BryntumTaskBoardProps = {
 
    columns : [
        { id : 'todo', text : 'Todo', color : 'orange' },
