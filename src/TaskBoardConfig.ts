@@ -19,13 +19,14 @@ export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard
 
     // Put everything with prefix of "on" in the events object for organization
     const events: BryntumTaskBoardProps = {
-        onColumnDrop: () => {
-            const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
-            doneColumn.text = (doneColumn as any).originalData.text
-        },
         onColumnDragStart() {
             const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
             doneColumn.text = "DRAGGING THE DONE COLUMN";
+        },
+        onColumnDrop: () => {
+            const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
+            // Using 'as any' here because the Bryntum type doesn't know about the 'originalData' property
+            doneColumn.text = (doneColumn as any).originalData.text
         },
     };
 
