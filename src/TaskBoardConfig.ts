@@ -2,7 +2,25 @@ import { BryntumTaskBoard, BryntumTaskBoardProps } from '@bryntum/taskboard-reac
 import { ColumnModel } from '@bryntum/taskboard';
 
 export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard>) => BryntumTaskBoardProps = (taskBoardRef) => {
+    const features: BryntumTaskBoardProps = {
+        columnDragFeature: true,
+        taskDragFeature: true,
+    };
+
+    const events: BryntumTaskBoardProps = {
+        onColumnDrop: () => {
+            const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
+            doneColumn.text = (doneColumn as any).originalData.text
+        },
+        onColumnDragStart() {
+            const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
+            doneColumn.text = "DRAGGING THE DONE COLUMN";
+        },
+    };
+
     return {
+        ...features,
+        ...events,
         project: {
             transport: {
                 load: {
@@ -25,15 +43,6 @@ export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard
                     text: 'My button'
                 }
             ]
-        },
-        taskDragFeature: true,
-        onTaskDrop: (event) => {
-            console.log("event", event)
-        },
-        columnDragFeature: true,
-        onColumnDragStart() {
-            const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
-            doneColumn.text = "DRAGGING THE DONE COLUMN";
         },
     }
 };
