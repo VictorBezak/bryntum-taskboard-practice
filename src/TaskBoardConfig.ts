@@ -2,11 +2,22 @@ import { BryntumTaskBoard, BryntumTaskBoardProps } from '@bryntum/taskboard-reac
 import { ColumnModel } from '@bryntum/taskboard';
 
 export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard>) => BryntumTaskBoardProps = (taskBoardRef) => {
+    const project: BryntumTaskBoardProps["project"] = {
+        transport: {
+            load: {
+                url: 'data.json'
+            }
+        },
+        autoLoad: true
+    };
+
+    // Put everything with suffix of "Feature" in the features object for organization
     const features: BryntumTaskBoardProps = {
         columnDragFeature: true,
         taskDragFeature: true,
     };
 
+    // Put everything with prefix of "on" in the events object for organization
     const events: BryntumTaskBoardProps = {
         onColumnDrop: () => {
             const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
@@ -19,18 +30,10 @@ export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard
     };
 
     return {
+        project,
         ...features,
         ...events,
-        project: {
-            transport: {
-                load: {
-                    url: 'data.json'
-                }
-            },
-            autoLoad: true
-        },
-        // Field used to pair a task to a column
-        columnField: 'status',
+        columnField: 'status', // Field used to pair a task to a column
         columns: [
             { id: 'todo', text: 'Todo', color: 'orange' },
             { id: 'doing', text: 'Doing', color: 'blue', tooltip: 'Items that are currently in progress' },
