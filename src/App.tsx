@@ -1,5 +1,5 @@
 import { BryntumTaskBoard } from '@bryntum/taskboard-react';
-import { initTaskboardProps, taskboardProps } from './TaskBoardConfig.ts';
+import { initTaskboardProps } from './TaskBoardConfig.ts';
 import './App.scss';
 import { useRef } from 'react';
 import { ColumnModel, TaskBoard } from '@bryntum/taskboard';
