@@ -25,7 +25,8 @@ export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard
         },
         onColumnDrop: () => {
             const doneColumn = taskBoardRef.current!.instance.columns.getById("done") as ColumnModel;
-            // Using 'as any' here because the Bryntum type doesn't know about the 'originalData' property
+            // Using 'as any' here because the Bryntum type doesn't know about the 'originalData' property. Using it in some situations is
+            // fine. Here we are using it to restore the done column's text to its initial value before we changed it with onColumnDragStart.
             doneColumn.text = (doneColumn as any).originalData.text
         },
     };
