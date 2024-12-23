@@ -1,7 +1,7 @@
 import { BryntumTaskBoard, BryntumTaskBoardProps } from '@bryntum/taskboard-react';
 import { ColumnModel } from '@bryntum/taskboard';
 
-export const initTaskboardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard>) => BryntumTaskBoardProps = (taskBoardRef) => {
+export const initTaskBoardProps: (taskBoardRef: React.RefObject<BryntumTaskBoard>) => BryntumTaskBoardProps = (taskBoardRef) => {
     return {
         project: {
             transport: {
