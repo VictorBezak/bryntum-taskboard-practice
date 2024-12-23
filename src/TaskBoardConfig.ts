@@ -27,7 +27,12 @@ const taskboardProps: BryntumTaskBoardProps = {
     taskDragFeature: true,
     onTaskDrop: (event) => {
         console.log("event", event)
-    }
+    },
+    columnDragFeature: true,
+    onColumnDrag(event) {
+        console.log("event", event)
+        event.columnRecord.text = "DRAGGING"
+    },
 };
 
 export { taskboardProps };
