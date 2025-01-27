@@ -1,18 +1,18 @@
-import { BryntumTaskBoard } from '@bryntum/taskboard-react';
-import { initTaskBoardProps } from './TaskBoardConfig.ts';
+import { BryntumGantt } from '@bryntum/gantt-react';
+import { initGanttProps } from './GanttConfig.ts';
 import './App.scss';
 import { useRef } from 'react';
 import React from 'react';
 
 
 function App() {
-    const taskBoardRef = useRef<BryntumTaskBoard>(null);
-    (window as any).taskBoardRef = taskBoardRef;
+    const ganttRef = useRef<BryntumGantt>(null);
+    (window as any).ganttRef = ganttRef;
 
-    const props = initTaskBoardProps(taskBoardRef);
+    const props = initGanttProps(ganttRef);
 
     return (
-        <BryntumTaskBoard {...props} ref={taskBoardRef} />
+        <BryntumGantt {...props} ref={ganttRef} />
     );
 }
 
