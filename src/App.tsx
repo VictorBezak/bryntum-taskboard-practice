@@ -4,7 +4,6 @@ import './App.scss';
 import { useRef } from 'react';
 import React from 'react';
 
-
 function App() {
     const ganttRef = useRef<BryntumGantt>(null);
     (window as any).ganttRef = ganttRef;
