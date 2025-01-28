@@ -9,7 +9,7 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
         autoLoad: true,
         transport: {
             load: {
-                url: 'data-flat.json',
+                url: 'data-wfp.json',
                 params: {
                     startDate: new Date("jan 1 2019").toISOString(),
                     endDate: new Date("jan 31 2019").toISOString(),
@@ -20,7 +20,7 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
             console.info("onDataReady");
         },
         taskStore: {
-            fields : ['priority', 'cost'],
+            fields : ['cost_code_id', 'label_id'],
             transformFlatData: true,
             transformLoadedData: (data) => {
                 console.info("transformLoadedData:", data);
@@ -52,9 +52,9 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
         ],
         treeGroupFeature: {
             hideGroupedColumns : true,
-            levels             : [
-                'priority'
-            ],
+            // levels             : [
+            //     'project_id'
+            // ],
             parentRenderer({ field, value, column, record }) {
                 // Do not html encode priority columns value, it uses custom markup
                 if (column.field === 'priority') {
@@ -72,16 +72,16 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
                 htmlEncode : false,
                 renderer   : ({ value }) => StringHelper.xss`<div>${value}</div>`
             },
-            { field : 'cost', text : 'Cost', width : 150 },
-            {
-                field    : 'priority',
-                text     : 'Priority',
-                width    : 120,
-                type     : 'template',
-                template : ({ value = '' }) => `<div class="b-prio b-prio-${StringHelper.encodeHtml(value)}">${prioTextMap[value] || ''}</div>`
-            },
-            { type : 'startdate' },
-            { type : 'duration', width : 150 }
+            // { field : 'cost', text : 'Cost', width : 150 },
+            // {
+            //     field    : 'priority',
+            //     text     : 'Priority',
+            //     width    : 120,
+            //     type     : 'template',
+            //     template : ({ value = '' }) => `<div class="b-prio b-prio-${StringHelper.encodeHtml(value)}">${prioTextMap[value] || ''}</div>`
+            // },
+            // { type : 'startdate' },
+            // { type : 'duration', width : 150 }
         ]
     };
 
