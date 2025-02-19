@@ -7,6 +7,13 @@ const prioTextMap = { 1 : 'High', 2 : 'Medium', 3 : 'Low' };
 export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => BryntumGanttProps = (ganttRef) => {
     const project: BryntumGanttProps["project"] = {
         autoLoad: true,
+        stm : {
+            // NOTE, that this option does not enable the STM itself, this is done by the `undoredo` widget, defined in the toolbar
+            // If you don't use `undoredo` widget in your app, you need to enable STM manually: `stm.enable()`,
+            // otherwise, it won't be tracking changes in the data
+            // It's usually best to enable STM after the initial data loading is completed.
+            autoRecord : true
+        },
         transport: {
             load: {
                 url: 'data-wfp.json',
@@ -20,7 +27,7 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
             console.info("onDataReady");
         },
         taskStore: {
-            fields : ['cost_code_id', 'label_id'],
+            fields : ['cost_code_id', 'label_id', 'job_title_name'],
             transformFlatData: true,
             transformLoadedData: (data) => {
                 console.info("transformLoadedData:", data);
@@ -47,8 +54,20 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
     // Put everything with suffix of "Feature" in the features object for organization
     const features: BryntumGanttProps = {
         tbar : [
-            'Drag columns here to group',
-            { type : 'groupbar' }
+            // 'Drag columns here to group',
+            // { type : 'groupbar' },
+            {
+                type  : 'buttonGroup',
+                items : [
+                    {
+                        type  : 'undoredo',
+                        ref   : 'undoRedo',
+                        items : {
+                            transactionsCombo : null
+                        }
+                    } as any
+                ]
+            },
         ],
         treeGroupFeature: {
             hideGroupedColumns : true,
@@ -70,7 +89,19 @@ export const initGanttProps: (ganttRef: React.RefObject<BryntumGantt>) => Bryntu
                 flex       : 1,
                 minWidth   : 300,
                 htmlEncode : false,
-                renderer   : ({ value }) => StringHelper.xss`<div>${value}</div>`
+                // renderer   : ({ value }) => StringHelper.xss`<div>${value}</div>`
+                renderer   : (e) => {
+                    console.info("renderer:", e);
+                    let label = e.value;
+
+                    if (e.record.getData("type") === "assignment") {
+                        label = (ganttRef.current?.instance as any).resourceStore.getById(e.record.getData("resource_id")).getData("name");
+                        debugger;
+                    } else if (e.record.getData("type") === "request") {
+                        label = "Request";
+                    }
+                    return StringHelper.xss`<div>${label}</div>`;
+                },
             },
             // { field : 'cost', text : 'Cost', width : 150 },
             // {
